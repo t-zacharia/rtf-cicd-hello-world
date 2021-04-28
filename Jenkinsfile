@@ -11,13 +11,13 @@ pipeline {
   stages {
     stage('Build') {
       steps {
-            sh 'mvn -B -U -e -V clean -DskipTests package'
+            sh 'mvn -f pom.xml -B -U -e -V clean -DskipTests package'
       }
     }
 
     stage('Test') {
       steps {
-          sh 'mvn test'
+          sh "mvn -f pom.xml test"
       }
     }
 
@@ -27,12 +27,12 @@ pipeline {
         APP_NAME = 'rtf-cicd-hello-world'
       }
       steps {
-            sh 'mvn -U -V -e -B -DskipTests deploy -DmuleDeploy -Dmule.version="%MULE_VERSION%" -Danypoint.username="%DEPLOY_CREDS_USR%" -Danypoint.password="%DEPLOY_CREDS_PSW%" -Dcloudhub.app="%APP_NAME%" -Dcloudhub.environment="%ENVIRONMENT%" -Dcloudhub.bg="%BG%" -Dcloudhub.worker="%WORKER%"'
+            sh 'mvn -f pom.xml -U -V -e -B -DskipTests deploy -DmuleDeploy -Dmule.version="$MULE_VERSION" -Danypoint.username="$DEPLOY_CREDS_USR" -Danypoint.password="$DEPLOY_CREDS_PSW" -Dcloudhub.app="$APP_NAME" -Dcloudhub.environment="$ENVIRONMENT" -Dcloudhub.bg="$BG" -Dcloudhub.worker="$WORKER"'
       }
     }
   }
 
-  tools {
-    maven 'M3'
-  }
+//  tools {
+//    maven 'M3'
+//  }
 }
