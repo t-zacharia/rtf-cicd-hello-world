@@ -70,14 +70,14 @@
 		</plugins>
 	</build>
 
-	<distributionmanagement>
+	<distributionManagement>
 		<repository>
 			<id>ExchangeRepository</id>
 			<name>Corporate Repository</name>
 			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/4bbc7001-ad59-4009-87ef-07ab501ecd42/maven</url>
 			<layout>default</layout>
 		</repository>
-	</distributionmanagement>
+	</distributionManagement>
 
 	<dependencies>
 		<dependency>
