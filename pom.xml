@@ -74,7 +74,7 @@
 		<repository>
 			<id>corporate-artifact-repository</id>
 			<name>Corporate Artifact Repository</name>
-			<url>https://maven.anypoint.mulesoft.com/api/v1/organizations/fd27e1b2-65e3-4433-a232-73cf94a6bce52/maven</url>
+			<url>https://maven.anypoint.mulesoft.com/api/v3/organizations/fd27e1b2-65e3-4433-a232-73cf94a6bce52/maven</url>
 			<layout>default</layout>
 		</repository>
 	</distributionManagement>
