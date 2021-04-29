@@ -34,20 +34,35 @@
 				<configuration>
 					<runtimeFabricDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
-						<muleVersion>${mule.version}</muleVersion>
-						<server>rtf-on-azure</server>
-						<!-- user <server> above or add your user/pass below <username>xxx 
-							</username> <password>xxx</password> -->
+						<muleVersion>4.3.0</muleVersion>
+						<username>dfoley-att</username>
+						<password>M@lesoft1</password>
 						<applicationName>${rtf.app}</applicationName>
-						<environment>${rtf.environment}.</environment>
-						<provider>MC</provider>
 						<target>rtf-on-azure</target>
+						<environment>Sandbox</environment>
+						<provider>MC</provider>
+						<replicas>1</replicas>
 						<deploymentSettings>
-							<cpuReserved>100m</cpuReserved>
-							<cpuMax>1000m</cpuMax>
-							<memoryReserved>800Mi</memoryReserved>
-							<memoryMax>999Mi</memoryMax>
-							<replicationFactor>1</replicationFactor>
+							<enforceDeployingReplicasAcrossNodes>false</enforceDeployingReplicasAcrossNodes>
+							<updateStrategy>recreate</updateStrategy>
+							<clustered>false</clustered>
+							<forwardSslSession>false</forwardSslSession>
+							<lastMileSecurity>false</lastMileSecurity>
+							<resources>
+								<cpu>
+									<reserved>20m</reserved>
+									<limit>1500m</limit>
+								</cpu>
+								<memory>
+									<reserved>700Mi</reserved>
+									<limit>800Mi</limit>
+								</memory>
+							</resources>
+							<http>
+								<inbound>
+									<publicUrl>url</publicUrl>
+								</inbound>
+							</http>
 						</deploymentSettings>
 					</runtimeFabricDeployment>
 				</configuration>
