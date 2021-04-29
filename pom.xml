@@ -32,19 +32,24 @@
 				<version>${mule.maven.plugin.version}</version>
 				<extensions>true</extensions>
 				<configuration>
-					<cloudHubDeployment>
+					<runtimeFabricDeployment>
 						<uri>https://anypoint.mulesoft.com</uri>
 						<muleVersion>${mule.version}</muleVersion>
-						<!-- Deploy User Parameter -->
-						<username>${anypoint.username}</username>
-						<password>${anypoint.password}</password>
-						<!-- Environment Parameter -->
-						<environment>${cloudhub.environment}</environment>
-						<applicationName>${cloudhub.app}</applicationName>
-						<businessGroup>${cloudhub.bg}</businessGroup>
-						<workerType>${cloudhub.worker}</workerType>
-						<objectStoreV2>true</objectStoreV2>
-					</cloudHubDeployment>
+						<server>rtf-on-azure</server>
+						<!-- user <server> above or add your user/pass below <username>xxx 
+							</username> <password>xxx</password> -->
+						<applicationName>${rtf.app}</applicationName>
+						<environment>${rtf.environment}.</environment>
+						<provider>MC</provider>
+						<target>rtf-on-azure</target>
+						<deploymentSettings>
+							<cpuReserved>100m</cpuReserved>
+							<cpuMax>1000m</cpuMax>
+							<memoryReserved>800Mi</memoryReserved>
+							<memoryMax>999Mi</memoryMax>
+							<replicationFactor>1</replicationFactor>
+						</deploymentSettings>
+					</runtimeFabricDeployment>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -77,6 +82,59 @@
 			<classifier>mule-plugin</classifier>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<!-- Profiles for Deploying to Runtimes -->
+		<profile>
+			<id>rtf</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.mule.tools.maven</groupId>
+						<artifactId>mule-maven-plugin</artifactId>
+						<version>${mule.maven.plugin.version}</version>
+						<extensions>true</extensions>
+						<configuration>
+							<classifier>mule-application</classifier>
+							<runtimeFabricDeployment>
+								<uri>https://anypoint.mulesoft.com</uri>
+								<provider>MC</provider>
+								<username>${u}</username>
+								<password>${p}</password>
+								<environment>${deploy.environment}</environment>
+								<target>${deploy.rtf-target}</target>
+								<muleVersion>${app.runtime}</muleVersion>
+								<applicationName>${rtf.name}</applicationName>
+								<skipDeploymentVerification>true</skipDeploymentVerification>
+								<deploymentSettings>
+									<cpuReserved>${rtf.cpuReserved}</cpuReserved>
+									<cpuMax>${rtf.cpuMax}</cpuMax>
+									<memoryReserved>${rtf.memoryReserved}</memoryReserved>
+									<memoryMax>${rtf.memoryMax}</memoryMax>
+									<publicUrl>${rtf.domain}/${rtf.name}</publicUrl>
+									<replicationFactor>${rtf.instances}</replicationFactor>
+									<lastMileSecurity>true</lastMileSecurity>
+								</deploymentSettings>
+								<properties>
+									<cps.projectName>${cps.projectName}</cps.projectName>
+									<cps.branchName>${cps.branchName}</cps.branchName>
+									<cps.instanceId>${cps.instanceId}</cps.instanceId>
+									<cps.keyId>${cps.keyId}</cps.keyId>
+									<http.port>8081</http.port>
+									<https.port>8081</https.port>
+									<api.http.port>8081</api.http.port>
+									<api.https.port>8081</api.https.port>
+									<api.base>${api.base}</api.base>
+									<api.version>${api.version}</api.version>
+									<project.version>${project.version}</project.version>
+								</properties>
+							</runtimeFabricDeployment>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
 	<repositories>
 		<repository>
