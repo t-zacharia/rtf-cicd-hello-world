@@ -23,7 +23,7 @@ pipeline {
 
     stage('Publish to Exchange') {
       steps {
-         sh "mvn deploy"
+         sh "mvn clean package deploy"
       }
     }
 
